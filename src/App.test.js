@@ -1,14 +1,26 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, waitFor, fireEvent
+ } from "@testing-library/react";
 import App from "./App"
+import { fetchShow as mockFetchShow } from "./api/fetchShow";
+import {episodeFixture} from "./components/Episodes.test";
 
-test("Render of Episodes",()=>{
-    const { getAllByTestId, rerender } = render(<App episodes={[]} />);
 
-    const episodesUrl = ["https://api.tvmaze.com/singlesearch/shows?q=stranger-things&embed=episodes"]
+jest.mock("./api/fetchShow")
 
+test("Render of Episodes", async ()=>{
+
+   mockFetchShow.mockResolvedValueOnce({data: episodeFixture});
+
+    const {getByTestId, queryAllByTestId } = render(<App />);
+
+
+
+    // fire Event.click(dropdown)
+
+    // await waitFor(()=> {
+    //     expect(queryAllByTestId(episodeFixture).toHaveLength(2))
     
-
- 
+    // })
 
 })
